@@ -1,6 +1,6 @@
 import { get } from '../client'
-import { Product } from '../../types';
-import { Products } from '../../types';
+import { Product } from '../../types/Product';
+import { Products } from '../../types/Products';
 
 
 
