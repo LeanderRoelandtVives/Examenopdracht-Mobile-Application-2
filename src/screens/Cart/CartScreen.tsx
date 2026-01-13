@@ -1,16 +1,17 @@
-import React from 'react';
 import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store/store';
 import { updateCartItemQuantity, removeFromCart} from '../../store/cartSlice';
+import { selectCartItems, selectTotalItems, selectSubtotal } from '../../selectors/cartSelector';
+
+
 
 export default function CartScreen()
 {
-  const dispatch = useDispatch();
-  const items = useSelector((state: RootState) => state.cart.items);
+    const dispatch = useDispatch();
 
-  const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
-  const subtotal = items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+    const items = useSelector(selectCartItems);
+    const totalItems = useSelector(selectTotalItems);
+    const subtotal = useSelector(selectSubtotal);
 
   const renderItem = ({ item }: any) =>
     (

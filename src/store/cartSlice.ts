@@ -1,26 +1,11 @@
 import { createSlice, PayloadAction  } from '@reduxjs/toolkit'
-import { Product } from '../types/Product';
-
-interface CartProduct extends Product
-{
-  quantity: number;
-}
-
-interface CartState
-{
-  items: CartProduct[];
-  favorites: Product[];
-  theme: 'light' | 'dark';
-}
-
-
+import type { Product } from '../types/Product';
+import type { CartState } from '../types/CartState';
 
 
 const initialState: CartState =
 {
   items: [],
-  favorites: [],
-  theme: 'light',
 }
 
 
@@ -28,7 +13,8 @@ const cartSlice = createSlice(
 {
     name: 'cart',
     initialState,
-    reducers: {
+    reducers:
+    {
         addToCart: (state, action: PayloadAction<Product>) =>
         {
             const product = action.payload
