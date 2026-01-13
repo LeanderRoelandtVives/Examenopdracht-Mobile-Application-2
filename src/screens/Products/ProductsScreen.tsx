@@ -11,12 +11,12 @@ export default function ProductsScreen()
 
     if (isLoading)
     {
-            return <ActivityIndicator />;
+      return <ActivityIndicator />;
     }
 
     if (isError)
     {
-        return <Text>Failed to load products</Text>;
+      return <Text>Failed to load products</Text>;
     }
 
   return (

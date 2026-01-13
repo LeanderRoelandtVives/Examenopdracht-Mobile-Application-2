@@ -7,7 +7,7 @@ export default function Layout()
   return (
     <QueryClientProvider client={queryClient}>
         <Tabs>
-            <Tabs.Screen name="(tabs)" options={{ title: 'Home' }} />
+            <Tabs.Screen name="home" options={{ title: 'Home', headerShown: false }} />
             <Tabs.Screen name="cart" options={{ title: 'Cart' }} />
             <Tabs.Screen name="profile" options={{ title: 'Profile' }} />
         </Tabs>
