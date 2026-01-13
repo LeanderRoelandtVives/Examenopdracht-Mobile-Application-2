@@ -1,5 +1,5 @@
-import { RootState } from '../store'
-import { CartProduct } from './cartSlice'
+import { RootState } from '../store/store'
+import { CartProduct } from '../types/Cart/CartProduct'
 
 
 

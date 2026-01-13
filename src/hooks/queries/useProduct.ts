@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { fetchProductById } from "../../api/endpoints/products"
-import { Product } from "../../types/Product"
+import { Product } from "../../types/Product/Product"
 import { queryKeys } from "../../constants/queryKeys"
 
 export const useProduct = (id: number) =>

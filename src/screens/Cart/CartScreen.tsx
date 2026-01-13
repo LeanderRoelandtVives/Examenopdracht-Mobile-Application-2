@@ -1,51 +1,49 @@
-import { View, Text, Button, FlatList, StyleSheet } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateCartItemQuantity, removeFromCart} from '../../store/cartSlice';
-import { selectCartItems, selectTotalItems, selectSubtotal } from '../../selectors/cartSelector';
+import { View, Text, Button, FlatList, StyleSheet } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateCartItemQuantity, removeFromCart} from '../../store/cartSlice'
+import { selectCartItems, selectTotalItems, selectSubtotal } from '../../selectors/cartSelector'
+import { selectIsDark } from '../../selectors/userPreferencesSelector'
 
 
 
 export default function CartScreen()
 {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    const items = useSelector(selectCartItems);
-    const totalItems = useSelector(selectTotalItems);
-    const subtotal = useSelector(selectSubtotal);
+    const isDark = useSelector(selectIsDark)
+
+    const items = useSelector(selectCartItems)
+    const totalItems = useSelector(selectTotalItems)
+    const subtotal = useSelector(selectSubtotal)
 
   const renderItem = ({ item }: any) =>
     (
-        <View style={styles.item}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text>${item.price}</Text>
-
-        <View style={styles.row}>
-            <Button
-            title="-"
-            onPress={() =>
-                dispatch(
-                updateCartItemQuantity({ id: item.id, quantity: item.quantity - 1 })
-                )
-            }
-            />
-            <Text style={styles.qty}>{item.quantity}</Text>
-            <Button
-            title="+"
-            onPress={() =>
-                dispatch(
-                updateCartItemQuantity({ id: item.id, quantity: item.quantity + 1 })
-                )
-            }
-            />
-            <Button title="Remove" onPress={() => dispatch(removeFromCart(item.id))} />
-        </View>
-        </View>
+    <View style={[styles.item, { borderBottomColor: isDark ? '#333' : '#ccc' }]}>
+      <Text style={[styles.title, { color: isDark ? '#fff' : '#000' }]}>{item.title}</Text>
+      <Text style={{ color: isDark ? '#ccc' : '#000' }}>${item.price}</Text>
+      <View style={styles.row}>
+        <Button
+          title="-"
+          onPress={() =>
+            dispatch(updateCartItemQuantity({ id: item.id, quantity: item.quantity - 1 }))
+          }
+        />
+        <Text style={[styles.qty, { color: isDark ? '#fff' : '#000' }]}>{item.quantity}</Text>
+        <Button
+          title="+"
+          onPress={() =>
+            dispatch(updateCartItemQuantity({ id: item.id, quantity: item.quantity + 1 }))
+          }
+        />
+        <Button title="Remove" onPress={() => dispatch(removeFromCart(item.id))} />
+      </View>
+    </View>
     )
 
     if (items.length === 0)
         return (
-        <View style={styles.empty}>
-            <Text>Your cart is empty</Text>
+        <View style={[styles.empty, { backgroundColor: isDark ? '#121212' : '#fff' }]}>
+            <Text style={{ color: isDark ? '#fff' : '#000' }}>Your cart is empty</Text>
         </View>
         )
 
@@ -56,7 +54,6 @@ export default function CartScreen()
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
       />
-
       <View style={styles.footer}>
         <Text>Total items: {totalItems}</Text>
         <Text>Subtotal: ${subtotal.toFixed(2)}</Text>
