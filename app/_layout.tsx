@@ -56,7 +56,8 @@ function LayoutInner()
         <Tabs.Screen
           name="profile"
           options={{
-            title: 'Profile',
+            headerShown: true,
+            title: 'Leander Roelandt',
             tabBarIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} />,
           }}
         />
