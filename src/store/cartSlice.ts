@@ -1,18 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction  } from '@reduxjs/toolkit'
+import { Product } from '../types/Product';
 
-const initialState =
+interface CartProduct extends Product
+{
+  quantity: number;
+}
+
+interface CartState
+{
+  items: CartProduct[];
+  favorites: Product[];
+  theme: 'light' | 'dark';
+}
+
+
+
+
+const initialState: CartState =
 {
   items: [],
   favorites: [],
   theme: 'light',
 }
 
+
 const cartSlice = createSlice(
-    {
+{
     name: 'cart',
     initialState,
     reducers: {
-        addToCart: (state, action) =>
+        addToCart: (state, action: PayloadAction<Product>) =>
         {
             const product = action.payload
             const existingItem = state.items.find((item) => item.id === product.id)
@@ -35,6 +52,7 @@ const cartSlice = createSlice(
         {
             state.items = state.items.filter((item) => item.id !== action.payload)
         },
+
         updateCartItemQuantity: (state, action) =>
         {
             const { id, quantity } = action.payload
@@ -45,53 +63,15 @@ const cartSlice = createSlice(
             {
                 item.quantity = Math.max(1, quantity)
             }
-        },
-
-        clearCart: (state) =>
-        {
-            state.items = [];
-        },
-
-        addToFavorites: (state, action) =>
-        {
-            const product = action.payload
-
-            const exists = state.favorites.find((item) => item.id === product.id)
-
-            if (!exists)
-                {
-                state.favorites.push(product)
-            }
-        },
-
-        removeFromFavorites: (state, action) =>
-        {
-            state.favorites = state.favorites.filter((item) => item.id !== action.payload)
-        },
-
-        toggleTheme: (state) =>
-        {
-            state.theme = state.theme === 'light' ? 'dark' : 'light'
-        },
-
-        setTheme: (state, action) =>
-        {
-            state.theme = action.payload;
-        },
+        }
     },
-    }
-)
+})
 
 export const
 {
   addToCart,
   removeFromCart,
   updateCartItemQuantity,
-  clearCart,
-  addToFavorites,
-  removeFromFavorites,
-  toggleTheme,
-  setTheme,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
