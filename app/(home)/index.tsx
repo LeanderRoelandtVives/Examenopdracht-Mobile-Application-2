@@ -1,6 +1,6 @@
 import ProductsScreen from '../../src/screens/Products/ProductsScreen'
 
-export default function ProductList()
+export default function ProductsIndex()
 {
   return <ProductsScreen />
 }
